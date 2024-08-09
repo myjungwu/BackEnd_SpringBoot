@@ -12,10 +12,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class DepartmentServiceImpl implements DepartmentService {
+    private final DepartmentRepository departmentRepository;
 
-    private DepartmentRepository departmentRepository;
+    //Constructor Injection
+    public DepartmentServiceImpl(DepartmentRepository departmentRepository) {
+        this.departmentRepository = departmentRepository;
+    }
 
     @Override
     public DepartmentDto createDepartment(DepartmentDto departmentDto) {

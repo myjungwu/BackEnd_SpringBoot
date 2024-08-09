@@ -15,11 +15,14 @@ import java.util.List;
 @Component
 @Profile("prod")  //InsertRunner 가 동작하지 않도록 하려면 현재 Profile과 다른 값을 주면 됨
 public class EmpDepInsertRunner implements ApplicationRunner {
-    @Autowired
-    DepartmentRepository departmentRepository;
+    final DepartmentRepository departmentRepository;
 
-    @Autowired
-    EmployeeRepository employeeRepository;
+    final EmployeeRepository employeeRepository;
+
+    public EmpDepInsertRunner(DepartmentRepository departmentRepository, EmployeeRepository employeeRepository) {
+        this.departmentRepository = departmentRepository;
+        this.employeeRepository = employeeRepository;
+    }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
