@@ -3,18 +3,19 @@ package com.restapi.emp.controller;
 import com.restapi.emp.dto.DepartmentDto;
 import com.restapi.emp.service.DepartmentService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@AllArgsConstructor
 @RestController
 @RequestMapping("/api/departments")
+@RequiredArgsConstructor
 public class DepartmentController {
 
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
 
     // Build Create or Add Department REST API
     @PostMapping
