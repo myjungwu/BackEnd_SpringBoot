@@ -37,7 +37,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 //        Department department = optional.orElseThrow(
 //                () -> new ResourceNotFoundException("Department is not exists with a given id: " + departmentId) );
 
-        String errMsg = String.format("Department is not exists with a given id: %s",departmentId);
+        String errMsg = String.format("Department is not exists with a given id: %s", departmentId);
         Department department = departmentRepository.findById(departmentId)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(errMsg, HttpStatus.NOT_FOUND)
