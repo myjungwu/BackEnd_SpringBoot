@@ -29,11 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         Employee employee = EmployeeMapper.mapToEmployee(employeeDto);
 
-        Department department = departmentRepository.findById(employeeDto.getDepartmentId())
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Department is not exists with id: " +
-                                employeeDto.getDepartmentId(),
-                                HttpStatus.NOT_FOUND));
+        Department department = EmpDeptCommon.getDepartment(employeeDto.getDepartmentId(), departmentRepository);
 
         employee.setDepartment(department);
 

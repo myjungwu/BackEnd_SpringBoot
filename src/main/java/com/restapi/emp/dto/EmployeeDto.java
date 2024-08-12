@@ -1,5 +1,6 @@
 package com.restapi.emp.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 //@AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class EmployeeDto {
     private Long id;
     private String firstName;
