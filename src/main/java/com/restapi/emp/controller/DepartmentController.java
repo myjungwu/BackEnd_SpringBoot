@@ -50,7 +50,8 @@ public class DepartmentController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteDepartment(@PathVariable("id") Long departmentId){
         departmentService.deleteDepartment(departmentId);
-        return ResponseEntity.ok("Department deleted successfully!.");
+        String okMsg = String.format("Department Id = %s deleted successfully!.",departmentId);
+        return ResponseEntity.ok(okMsg);
     }
 
 }
