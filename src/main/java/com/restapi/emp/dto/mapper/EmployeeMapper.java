@@ -21,6 +21,7 @@ public class EmployeeMapper {
                 employee.getFirstName(),
                 employee.getLastName(),
                 employee.getEmail(),
+                //Department Entity => Department Dto
                 DepartmentMapper.mapToDepartmentDto(employee.getDepartment())
         );
     }

@@ -40,7 +40,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDto getEmployeeById(Long employeeId) {
         Employee employee = EmpDeptCommon.getEmployee(employeeId, employeeRepository);
-
         return EmployeeMapper.mapToEmployeeDto(employee);
     }
 
@@ -64,29 +63,29 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto updateEmployee(Long employeeId, EmployeeDto updatedEmployee) {
-        Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException(
-                                "Employee is not exists with given id: " + employeeId,
-                                HttpStatus.NOT_FOUND)
-        );
+        Employee employee = EmpDeptCommon.getEmployee(employeeId, employeeRepository);
 
-        employee.setFirstName(updatedEmployee.getFirstName());
-        employee.setLastName(updatedEmployee.getLastName());
-        employee.setEmail(updatedEmployee.getEmail());
+        if (updatedEmployee.getFirstName() != null)
+            employee.setFirstName(updatedEmployee.getFirstName());
+        if (updatedEmployee.getLastName() != null)
+            employee.setLastName(updatedEmployee.getLastName());
+        if (updatedEmployee.getEmail() != null)
+            employee.setEmail(updatedEmployee.getEmail());
 
-        Department department = departmentRepository.findById(updatedEmployee.getDepartmentId())
-                .orElseThrow(() ->
-                        new ResourceNotFoundException(
-                                "Department is not exists with id: " + updatedEmployee.getDepartmentId(),
-                                HttpStatus.NOT_FOUND
-                                ));
+        Department department =
+                EmpDeptCommon.getDepartment(updatedEmployee.getDepartmentId(), departmentRepository);
+//                departmentRepository.findById(updatedEmployee.getDepartmentId())
+//                .orElseThrow(() ->
+//                        new ResourceNotFoundException(
+//                                "Department is not exists with id: " + updatedEmployee.getDepartmentId(),
+//                                HttpStatus.NOT_FOUND
+//                                ));
 
         employee.setDepartment(department);
 
-        Employee updatedEmployeeObj = employeeRepository.save(employee);
+        //Employee updatedEmployeeObj = employeeRepository.save(employee);
 
-        return EmployeeMapper.mapToEmployeeDto(updatedEmployeeObj);
+        return EmployeeMapper.mapToEmployeeDto(employee);
     }
 
     @Override

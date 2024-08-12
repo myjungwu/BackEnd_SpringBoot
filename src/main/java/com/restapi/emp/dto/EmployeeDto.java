@@ -1,6 +1,9 @@
 package com.restapi.emp.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,9 +15,18 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EmployeeDto {
     private Long id;
+
+    @NotEmpty(message = "firstName은 필수입력 항목입니다!")
     private String firstName;
+
+    @NotEmpty(message = "lastName 필수입력 항목입니다!")
     private String lastName;
+    
+    @NotBlank(message = "email은 필수입력 항목입니다!")
+    @Email
     private String email;
+
+    @NotBlank(message = "DepartmentId는 필수입력 항목입니다!")
     private Long departmentId;
 
     private DepartmentDto departmentDto;
