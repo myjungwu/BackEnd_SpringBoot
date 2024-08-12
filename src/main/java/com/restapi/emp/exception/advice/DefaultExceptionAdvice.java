@@ -49,9 +49,9 @@ public class DefaultExceptionAdvice {
     protected ProblemDetail handleException(DataIntegrityViolationException e) {
         //422 UNPROCESSABLE ENTITY = Request matched and met syntactic contract but validation failed
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.UNPROCESSABLE_ENTITY);
-        problemDetail.setTitle("Duplication Error");
-        problemDetail.setDetail(e.getMessage());
-        problemDetail.setProperty("errorCategory", "Generic");
+        problemDetail.setTitle("데이터 중복 오류");
+        problemDetail.setDetail("요청하신 데이터가 이미 존재합니다.");
+        problemDetail.setProperty("errorMsg", e.getMessage());
         problemDetail.setProperty("timestamp", Instant.now());
         return problemDetail;
     }

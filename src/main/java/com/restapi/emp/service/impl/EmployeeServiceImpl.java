@@ -39,14 +39,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto getEmployeeById(Long employeeId) {
-        Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException(
-                                "Employee is not exists with given id : " + employeeId,
-                                HttpStatus.NOT_FOUND));
+        Employee employee = EmpDeptCommon.getEmployee(employeeId, employeeRepository);
 
         return EmployeeMapper.mapToEmployeeDto(employee);
     }
+
 
     @Override
     public List<EmployeeDto> getAllEmployees() {
