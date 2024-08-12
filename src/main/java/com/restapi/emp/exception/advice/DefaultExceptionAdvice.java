@@ -3,6 +3,7 @@ package com.restapi.emp.exception.advice;
 import com.restapi.emp.exception.ErrorObject;
 import com.restapi.emp.exception.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
@@ -42,6 +43,19 @@ public class DefaultExceptionAdvice {
         problemDetail.setProperty("timestamp", Instant.now());
         return problemDetail;
     }
+
+    //Data Duplication error
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    protected ProblemDetail handleException(DataIntegrityViolationException e) {
+        //422 UNPROCESSABLE ENTITY = Request matched and met syntactic contract but validation failed
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.UNPROCESSABLE_ENTITY);
+        problemDetail.setTitle("Duplication Error");
+        problemDetail.setDetail(e.getMessage());
+        problemDetail.setProperty("errorCategory", "Generic");
+        problemDetail.setProperty("timestamp", Instant.now());
+        return problemDetail;
+    }
+
 
     //숫자타입의 값에 문자열타입의 값을 입력으로 받았을때 발생하는 오류
     @ExceptionHandler(HttpMessageNotReadableException.class)
