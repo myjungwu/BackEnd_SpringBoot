@@ -39,7 +39,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 //        Department department = optional.orElseThrow(
 //                () -> new ResourceNotFoundException("Department is not exists with a given id: " + departmentId) );
 
-        Department department = getDepartment(departmentId);
+        Department department = EmpDeptCommon.getDepartment(departmentId, departmentRepository);
         return DepartmentMapper.mapToDepartmentDto(department);
     }
 
